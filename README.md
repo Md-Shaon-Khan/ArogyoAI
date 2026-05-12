@@ -1,60 +1,345 @@
-# [cite_start]ArogyoAI: Clinical AI Diagnostic Platform [cite: 2]
+# ArogyoAI: Clinical AI Diagnostic Platform
 
-> **Screen Smart. Act Fast. [cite_start]Stay Healthy.** [cite: 12]
-> [cite_start]*An Infinity AI BuildFest — Hackathon Project Proposal for the Institute of Information Technology, Jahangirnagar University.* [cite: 3, 4]
+## Screen Smart. Act Fast. Stay Healthy.
 
-## Executive Summary
-[cite_start]ArogyoAI is an AI-powered clinical decision support platform designed to assist patients and healthcare professionals in Bangladesh[cite: 9]. [cite_start]It acts as an intelligent first-line screening layer that identifies potential conditions, quantifies confidence, and directs patients toward appropriate professional consultation[cite: 11]. [cite_start]The system integrates diagnostic modules with symptom intake, patient history management, and a real-time doctor monitoring dashboard[cite: 10]. [cite_start]We do not replace doctors; we make every doctor more powerful[cite: 11, 83].
+*A Project Proposal for the Infinity AI BuildFest Hackathon, Institute of Information Technology (IIT), Jahangirnagar University*
 
-## Problem Statement
-[cite_start]Bangladesh faces a critical shortage of diagnostic infrastructure, with a national doctor-to-patient ratio of approximately 1 physician per 2,000 people[cite: 14]. [cite_start]This gap widens significantly in rural and peri-urban areas, leaving millions without timely access to basic screening[cite: 15]. Key pain points addressed include:
-* [cite_start]Long waiting times and high consultation costs that deter early disease detection[cite: 17].
-* Patients lacking the knowledge to self-triage and understand when testing is necessary[cite: 18].
-* [cite_start]Diagnostic images being reviewed days after acquisition due to the unavailability of specialists[cite: 19].
-* [cite_start]The lack of a unified system to link patient symptoms, test results, and follow-up history[cite: 20].
+---
 
-## Core Features
+# Executive Summary
 
-### Symptom Questionnaire & Flow
-* Patients complete a structured symptom intake form before any diagnostic test is initiated[cite: 27].
-* [cite_start]The form adapts based on answers, such as presenting follow-up questions about duration and radiation if chest pain is reported[cite: 28].
-* [cite_start]It supports both English and Bangla input via Groq API language processing[cite: 29].
-* The system outputs a recommended test or set of tests based on symptom clustering[cite: 30].
+ArogyoAI is an AI-powered Clinical Decision Support Platform designed to assist patients and healthcare professionals in Bangladesh through intelligent preliminary screening and risk assessment.
 
-### AI Diagnostic Modules
-The platform features four AI-powered modules that accept medical files and return class probabilities and confidence scores[cite: 34]:
-* [cite_start]**Chest X-Ray**: Uses an ensemble of DenseNet121, ResNet50, and ViT-Base to detect conditions like Cardiomegaly, Edema, Consolidation, Pneumonia, and Atelectasis from JPEG/PNG inputs[cite: 35].
-* [cite_start]**ECG**: Utilizes a 1D ResNet + Transformer to classify 360 Hz CSV signals into categories like Normal, AF, ST-Elevation, and Bundle Branch Block[cite: 35].
-* **CT Scan**: A planned 3D CNN for nodule and mass detection from DICOM or PNG slices[cite: 35].
-* [cite_start]**Skin Disease**: Leverages EfficientNet-B3 to identify Melanoma, Eczema, Psoriasis, Acne, and more[cite: 35].
+The platform functions as a first-line diagnostic assistance system that analyzes patient symptoms, medical reports, and diagnostic images to identify potential health conditions and recommend appropriate medical consultation.
 
-### Risk Scoring & Alerts
-* [cite_start]Each AI prediction includes a confidence percentage, and results below 60% confidence are explicitly flagged as inconclusive[cite: 37].
-* All test results and symptom scores are aggregated into a single Overall Risk Score (0–100) per patient session[cite: 40].
-* [cite_start]High-risk scores (61–100) trigger an immediate emergency alert pushed to the doctor, and the patient is advised to seek urgent care[cite: 41, 61].
+ArogyoAI integrates multiple AI diagnostic modules with adaptive symptom intake, patient history management, and a real-time doctor monitoring dashboard. The platform is designed to enhance healthcare efficiency and support physicians in making faster and more informed clinical decisions.
 
-### Visual Explainability & Recommendations
-* [cite_start]For X-Ray and Skin Disease modules, the system generates a Gradient-weighted Class Activation Map (Grad-CAM) overlay[cite: 50].
-* This heatmap highlights the specific regions of the image that most influenced the prediction, increasing physician trust and transparency[cite: 51, 52].
-* [cite_start]Groq API (LLaMA 3) uses the patient's full history to generate personalized, evidence-based recommendations, including dietary adjustments and physical activity guidelines[cite: 43, 44, 45].
-* [cite_start]No pharmaceutical drug names or dosages are ever suggested by the AI[cite: 48].
+The system does not replace doctors. Instead, it strengthens healthcare delivery through AI-assisted screening and explainable diagnostic support.
 
-## Doctor Dashboard
-[cite_start]A dedicated interface provides oversight for registered physicians, offering tools for review and direct communication[cite: 63, 64].
-* [cite_start]**Patient List**: Ranks all patients by Risk Score and highlights critical patients in orange[cite: 65].
-* **Individual Reports**: Displays the full AI result, confidence scores, Grad-CAM images, and symptom history for each patient[cite: 65].
-* [cite_start]**Doctor Messaging & Scheduling**: Features secure in-app messaging for follow-up instructions and allows doctors to schedule sessions directly from the patient record[cite: 65].
-* [cite_start]**AI Accuracy Review**: Allows doctors to mark results as confirmed or incorrect to create a feedback loop for model improvement[cite: 65, 78].
+---
 
-## System Architecture
-* **Frontend**: Built with React.js, HTML, and Tailwind CSS[cite: 67]. Deployed via Netlify[cite: 67].
-* [cite_start]**Backend API**: Powered by FastAPI (Python) to manage REST endpoints, auth, inference calls, and alert logic[cite: 67]. [cite_start]Hosted on Render[cite: 67].
-* **Machine Learning**: Built on PyTorch using models like DenseNet121, ResNet50, ViT-Base, 1D ResNet, and EfficientNet[cite: 67].
-* [cite_start]**AI Language Integration**: Groq API (LLaMA 3) is used for symptom processing, Bangla support, and recommendation generation[cite: 67].
-* [cite_start]**Database**: MongoDB Atlas handles patient profiles, test history, messages, and doctor records[cite: 67].
+# Problem Statement
 
-## Ethical Commitments & Responsible AI
-* ArogyoAI is strictly a decision-support tool, not a diagnostic authority; all results require physician validation[cite: 73].
-* [cite_start]Confidence scores and inconclusiveness flags are always shown to prevent blind reliance on AI output[cite: 75].
-* [cite_start]Patient data is securely stored with access controls, and doctor-patient communication is kept private[cite: 76].
-* Grad-CAM explainability ensures the AI cannot function as a black box[cite: 77].
+Bangladesh faces major healthcare accessibility challenges due to a shortage of doctors and diagnostic infrastructure, especially in rural and peri-urban regions.
+
+Several key problems motivate the development of ArogyoAI:
+
+- Long waiting times and high consultation costs discourage early disease detection.
+- Many patients cannot determine when professional testing or urgent care is necessary.
+- Diagnostic images and reports are often reviewed late because of specialist shortages.
+- Healthcare systems frequently lack centralized patient monitoring and historical tracking.
+- Delayed diagnosis increases treatment complexity and healthcare burden.
+
+ArogyoAI aims to reduce these gaps by providing intelligent screening support, risk prioritization, and physician-assisted decision support.
+
+---
+
+# Core Features
+
+## 1. Adaptive Symptom Questionnaire System
+
+The platform begins with a structured symptom intake process before diagnostic analysis.
+
+### Features
+
+- Dynamic questionnaires adapt according to patient responses.
+- Follow-up questions are generated based on symptom severity, duration, and related conditions.
+- Supports both Bangla and English interaction through Groq API language processing.
+- Recommends appropriate diagnostic tests using symptom clustering and AI reasoning.
+
+---
+
+## 2. AI Diagnostic Modules
+
+ArogyoAI integrates multiple AI-powered diagnostic systems capable of analyzing medical data and generating confidence-based predictions.
+
+### Chest X-Ray Analysis
+
+Uses an ensemble architecture consisting of:
+
+- DenseNet121
+- ResNet50
+- Vision Transformer (ViT-Base)
+
+Detects conditions such as:
+
+- Pneumonia
+- Cardiomegaly
+- Pulmonary Edema
+- Consolidation
+- Atelectasis
+
+Supported formats:
+
+- JPEG
+- PNG
+
+---
+
+### ECG Signal Analysis
+
+Uses a hybrid architecture combining:
+
+- 1D ResNet
+- Transformer Networks
+
+Classifies ECG conditions including:
+
+- Normal Rhythm
+- Atrial Fibrillation (AF)
+- ST-Elevation
+- Bundle Branch Block
+
+Input format:
+
+- 360 Hz CSV signals
+
+---
+
+### CT Scan Analysis (Planned Module)
+
+Future implementation using 3D CNN architecture for:
+
+- Nodule Detection
+- Mass Detection
+- Tissue Abnormality Localization
+
+Supported formats:
+
+- DICOM
+- PNG Slices
+
+---
+
+### Skin Disease Detection
+
+Built using EfficientNet-B3 architecture.
+
+Detects conditions including:
+
+- Melanoma
+- Eczema
+- Psoriasis
+- Acne
+- Other common skin diseases
+
+---
+
+# Risk Scoring and Emergency Alert System
+
+Each AI-generated prediction includes:
+
+- Probability distributions
+- Confidence percentages
+- Inconclusive result detection
+
+Predictions below 60% confidence are automatically flagged as inconclusive.
+
+The platform combines:
+
+- Symptom severity
+- Diagnostic results
+- Patient history
+- AI confidence scores
+
+into a unified Overall Risk Score (0-100).
+
+## Risk Classification
+
+| Risk Score | Classification |
+|------------|----------------|
+| 0-30       | Low Risk       |
+| 31-60      | Moderate Risk  |
+| 61-100     | High Risk      |
+
+### High-Risk Alert Actions
+
+- Immediate emergency alert sent to doctors
+- Priority patient highlighting
+- Urgent consultation recommendation
+
+---
+
+# Visual Explainability and Transparency
+
+To improve physician trust and system transparency, ArogyoAI incorporates Explainable AI techniques.
+
+## Grad-CAM Visualization
+
+For X-Ray and Skin Disease modules, the system generates:
+
+- Gradient-weighted Class Activation Maps (Grad-CAM)
+
+These heatmaps highlight image regions that most influenced the AI prediction.
+
+### Benefits
+
+- Improves interpretability
+- Reduces black-box concerns
+- Supports physician validation
+- Increases trust in AI-assisted diagnosis
+
+---
+
+# Personalized Health Recommendations
+
+Using Groq API with LLaMA 3 integration, the platform generates evidence-based recommendations based on:
+
+- Patient history
+- Symptoms
+- Risk scores
+- Diagnostic outcomes
+
+### Recommendation Types
+
+- Lifestyle guidance
+- Dietary suggestions
+- Physical activity recommendations
+- Follow-up consultation advice
+
+### Ethical Limitation
+
+The AI system does not:
+
+- Prescribe medication
+- Suggest pharmaceutical drug names
+- Recommend dosages
+
+---
+
+# Doctor Dashboard
+
+A dedicated physician dashboard provides monitoring and clinical review functionality.
+
+## Features
+
+### Patient Prioritization
+
+- Patients ranked according to risk score
+- Critical patients visually highlighted
+
+### Individual Patient Reports
+
+Doctors can access:
+
+- AI predictions
+- Confidence scores
+- Grad-CAM visualizations
+- Symptom history
+- Uploaded medical records
+
+### Secure Communication
+
+- In-app doctor-patient messaging
+- Follow-up scheduling
+- Secure consultation support
+
+### AI Feedback Loop
+
+Doctors can:
+
+- Confirm predictions
+- Mark incorrect outputs
+- Provide feedback for future model improvement
+
+---
+
+# System Architecture
+
+## Frontend
+
+Technologies used:
+
+- React.js
+- HTML
+- Tailwind CSS
+
+Deployment:
+
+- Netlify
+
+---
+
+## Backend
+
+Built using:
+
+- FastAPI (Python)
+
+Responsibilities:
+
+- REST API management
+- Authentication
+- AI inference handling
+- Risk alert processing
+
+Deployment:
+
+- Render
+
+---
+
+## Machine Learning Stack
+
+Framework:
+
+- PyTorch
+
+Models used:
+
+- DenseNet121
+- ResNet50
+- Vision Transformer (ViT-Base)
+- EfficientNet-B3
+- 1D ResNet
+- Transformer Networks
+
+---
+
+## AI Language Integration
+
+Groq API with LLaMA 3 supports:
+
+- Symptom understanding
+- Bangla language processing
+- Recommendation generation
+
+---
+
+## Database
+
+MongoDB Atlas is used for:
+
+- Patient profiles
+- Medical history
+- Diagnostic records
+- Messaging data
+- Doctor management
+
+---
+
+# Ethical Commitments and Responsible AI
+
+ArogyoAI is strictly a Clinical Decision Support System and not an autonomous diagnostic authority.
+
+All outputs require physician validation before medical action is taken.
+
+## Ethical Principles
+
+- Confidence scores are always displayed
+- Inconclusive predictions are clearly identified
+- Patient data is securely stored
+- Access control mechanisms protect privacy
+- Doctor-patient communication remains confidential
+- Explainable AI reduces black-box dependency
+- Physicians remain the final decision-makers
+
+---
+
+# Conclusion
+
+ArogyoAI aims to improve healthcare accessibility in Bangladesh through AI-assisted screening, explainable diagnostics, multilingual interaction, and risk-based prioritization.
+
+The platform is designed to support healthcare professionals by enabling faster screening, earlier detection, and more informed decision-making.
+
+Rather than replacing doctors, ArogyoAI strengthens healthcare systems through responsible and transparent AI integration.
