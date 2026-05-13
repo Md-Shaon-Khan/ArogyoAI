@@ -1,0 +1,32 @@
+Accuracy : 0.7846
+Macro F1 : 0.7399
+AUC-ROC  : 0.9881
+
+                             precision    recall  f1-score   support
+
+          actinic_keratosis       0.73      0.90      0.80       857
+                atelectasis       0.68      0.62      0.65      1143
+        atrial_fibrillation       0.90      0.85      0.87      2000
+       basal_cell_carcinoma       0.83      0.72      0.78       857
+           benign_keratosis       0.48      0.86      0.62       857
+               cardiomegaly       0.82      0.77      0.80      1714
+        conduction_disorder       0.94      0.95      0.94      1428
+              consolidation       0.61      0.76      0.68      1428
+                 ct_anomaly       0.92      0.94      0.93      1143
+             dermatofibroma       0.32      0.24      0.27       572
+                hypertrophy       0.73      0.74      0.73      1428
+                   ischemia       0.82      0.90      0.86      1714
+           melanocytic_nevi       0.48      0.43      0.45       857
+                   melanoma       0.96      0.90      0.93      1143
+      myocardial_infarction       0.95      0.89      0.92      2000
+                     normal       0.88      0.80      0.84      2859
+                     others       0.60      0.63      0.62      1143
+                  pneumonia       0.87      0.76      0.81      2000
+            pulmonary_edema       0.80      0.80      0.80      1429
+supraventricular_arrhythmia       0.79      0.86      0.83      1428
+            vascular_lesion       0.51      0.23      0.32       572
+     ventricular_arrhythmia       0.82      0.84      0.83      1428
+
+                   accuracy                           0.78     30000
+                  macro avg       0.75      0.75      0.74     30000
+               weighted avg       0.79      0.78      0.78     30000
