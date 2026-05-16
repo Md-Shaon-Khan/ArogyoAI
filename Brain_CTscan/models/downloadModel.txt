@@ -1,0 +1,1 @@
+https://huggingface.co/Hamim88/neuro-scan-ai/resolve/main/brain_classifier_final.pth
